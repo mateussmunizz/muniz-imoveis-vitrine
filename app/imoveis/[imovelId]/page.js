@@ -90,11 +90,14 @@ export default async function Page({ searchParams, params }) {
 
   return (
     <div className="max-w-7xl mx-auto mt-8 mb-24 px-4">
-      <GaleriaImovel imagemPrincipal={imagemSegura} galeria={galeria_imagens} />
+      <div className="w-full max-w-full overflow-hidden">
+        <GaleriaImovel
+          imagemPrincipal={imagemSegura}
+          galeria={galeria_imagens}
+        />
+      </div>
 
-      {/* O GRID: 2 partes para conteúdo, 1 parte para a caixa de valores no PC */}
-      <div className="flex flex-col lg:grid lg:grid-cols-[2fr_1fr] gap-12 md:gap-16">
-        {/* COLUNA ESQUERDA (Detalhes do Imóvel) */}
+      <div className="flex flex-col lg:grid lg:grid-cols-[2fr_1fr] gap-12 md:gap-16 mt-8">
         <div className="order-1 lg:col-span-1">
           <div className="flex flex-col sm:flex-row justify-between items-start mb-6 gap-6">
             <div>
@@ -168,7 +171,6 @@ export default async function Page({ searchParams, params }) {
           </div>
         </div>
 
-        {/* COLUNA DIREITA (Caixa de Valores) - Totalmente reescrita e limpa */}
         <div className="order-2 relative w-full h-full">
           <div className="sticky top-32 bg-primary-900 border border-primary-800 rounded-2xl p-6 md:p-8 shadow-2xl w-full">
             <h3 className="text-2xl font-bold text-primary-50 mb-6 border-b border-primary-800 pb-4">
