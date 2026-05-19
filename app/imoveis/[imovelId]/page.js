@@ -89,7 +89,7 @@ export default async function Page({ searchParams, params }) {
   );
 
   return (
-    <div className="max-w-7xl mx-auto mt-8 mb-24 px-4">
+    <div className="max-w-7xl mx-auto mt-8 mb-24 px-4 overflow-x-hidden">
       <div className="w-full max-w-full overflow-hidden">
         <GaleriaImovel
           imagemPrincipal={imagemSegura}
@@ -104,7 +104,7 @@ export default async function Page({ searchParams, params }) {
               <p className="text-primary-600 font-bold mb-2 uppercase tracking-wide text-sm">
                 Código: {codigo_imovel || id}
               </p>
-              <h1 className="text-4xl md:text-5xl font-extrabold text-primary-900 leading-tight mb-6 break-words">
+              <h1 className="text-3xl md:text-5xl font-extrabold text-primary-900 leading-tight mb-6 break-all sm:break-words">
                 {name}
               </h1>
             </div>
