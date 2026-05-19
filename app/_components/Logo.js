@@ -9,6 +9,7 @@ function Logo() {
         height={300}
         width={300}
         alt="Logo Muniz Imóveis"
+        className="h-12 w-auto md:h-[150px] md:w-auto object-contain transition-all"
       />
     </Link>
   );

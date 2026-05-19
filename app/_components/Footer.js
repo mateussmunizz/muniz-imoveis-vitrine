@@ -84,6 +84,13 @@ function Footer() {
         </p>
         <p className="text-xl mt-2 md:mt-0">CRECI-SP: 00000-J</p>
       </div>
+
+      <div className="mt-4 pt-4 border-t border-gray-800 w-full max-w-md mx-auto">
+        <p className="text-xs text-gray-500">
+          Este é apenas um projeto acadêmico. As imagens dos imóveis utilizadas
+          nesta aplicação foram geradas por Inteligência Artificial.
+        </p>
+      </div>
     </footer>
   );
 }

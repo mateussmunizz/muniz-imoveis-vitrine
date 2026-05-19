@@ -18,17 +18,21 @@ export const metadata = {
   },
   description:
     "Encontre o seu novo lar com a Muniz Imóveis. Excelência, privacidade e segurança 100% garantidas.",
+
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
       <body
-        className={`${josefin.className} overflow-x-hidden max-w-[100vw] antialiased bg-stone-50 text-primary-900 min-h-screen flex flex-col relative`}
+        className={`${josefin.className} overflow-x-hidden w-full antialiased bg-stone-50 text-primary-900 min-h-screen flex flex-col relative`}
       >
         <Header />
 
-        <div className="flex-1 px-4 md:px-8 py-12 grid">
+        <div className="flex-1 px-4 md:px-8 py-12 grid w-full">
           <main className="max-w-[100rem] mx-auto w-full">
             <ContratoProvider>{children}</ContratoProvider>
           </main>
