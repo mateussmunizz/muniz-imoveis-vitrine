@@ -24,17 +24,27 @@ const authConfig = {
             fullName: user.name,
           });
         }
-
         return true;
       } catch (error) {
-        console.error("Erro durante o signIn:", error);
+        console.error("ERRO NO SIGNIN (Falha ao comunicar com BD):", error);
         return false;
       }
     },
+
     async session({ session, user }) {
-      const cliente = await getCliente(session.user.email);
-      session.user.clienteId = cliente.id;
-      return session;
+      try {
+        const cliente = await getCliente(session.user.email);
+
+        if (cliente && cliente.id) {
+          session.user.clienteId = cliente.id;
+        }
+
+        return session;
+      } catch (error) {
+        console.error("ERRO NA SESSÃO (Falha ao buscar ID):", error);
+
+        return session;
+      }
     },
   },
   pages: {

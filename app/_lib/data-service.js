@@ -1,11 +1,17 @@
 import { supabase } from "./supabase";
 
 export async function getCliente(email) {
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("clientes")
     .select("*")
     .eq("email", email)
-    .single();
+    .maybeSingle();
+
+  if (error) {
+    console.error("Erro ao buscar cliente no Supabase:", error);
+    return null;
+  }
+
   return data;
 }
 
