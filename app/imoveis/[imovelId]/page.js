@@ -88,6 +88,76 @@ export default async function Page({ searchParams, params }) {
     `Olá! Tenho interesse no imóvel "${name}" (Ref: ${codigo_imovel || id}) que vi no site.`,
   );
 
+  // NOVO: Separamos o conteúdo da caixa de Valores numa variável
+  // para podermos exibi-la em lugares diferentes no Mobile e no Desktop
+  const conteudoValores = (
+    <>
+      <h3 className="text-2xl font-bold text-primary-50 mb-6 border-b border-primary-800 pb-4">
+        Valores
+      </h3>
+
+      <div className="flex flex-col gap-4 mb-6">
+        <div className="flex justify-between items-center text-primary-200">
+          <span className="text-lg">Valor Base</span>
+          <span className="font-semibold text-primary-50 text-xl">
+            R$ {precoBase.toLocaleString("pt-BR")}
+          </span>
+        </div>
+        <div className="flex justify-between items-center text-primary-200">
+          <span className="text-lg">Condomínio</span>
+          <span className="font-semibold text-primary-50 text-xl">
+            R$ {valor_condominio || 0}
+          </span>
+        </div>
+        <div className="flex justify-between items-center text-primary-200">
+          <span className="text-lg">IPTU</span>
+          <span className="font-semibold text-primary-50 text-xl">
+            R$ {valor_iptu || 0}
+          </span>
+        </div>
+      </div>
+
+      <div className="flex justify-between items-center py-6 border-t border-primary-800 mb-8">
+        <span className="text-2xl font-bold text-primary-50">Total</span>
+        <span className="text-3xl md:text-4xl font-bold text-accent-400">
+          R$ {valorTotal.toLocaleString("pt-BR")}
+        </span>
+      </div>
+
+      <div className="flex flex-col gap-4 mb-6">
+        <a
+          href={`https://wa.me/${WHATSAPP_NUMBER}?text=${wppMessage}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full bg-[#25D366] hover:bg-[#1ebd5a] text-white font-bold py-4 rounded-xl text-center flex items-center justify-center gap-2 shadow-lg transition-all"
+        >
+          Falar no WhatsApp
+        </a>
+        <a
+          href={`mailto:${EMAIL_CONTACT}?subject=Interesse no Imóvel ${codigo_imovel || id}`}
+          className="w-full bg-primary-800 hover:bg-primary-700 text-primary-50 font-bold py-4 rounded-xl text-center border border-primary-700 transition-all"
+        >
+          Enviar E-mail
+        </a>
+      </div>
+
+      <div className="relative flex items-center py-2 mb-6">
+        <div className="flex-grow border-t border-primary-800"></div>
+        <span className="flex-shrink-0 mx-4 text-primary-400 text-sm uppercase tracking-wider">
+          ou agende online
+        </span>
+        <div className="flex-grow border-t border-primary-800"></div>
+      </div>
+
+      <Link
+        href={`/account/contratos/novo?imovel=${id}`}
+        className="block w-full bg-accent-500 hover:bg-accent-600 text-primary-900 text-center text-xl font-bold py-5 rounded-xl transition-all shadow-lg hover:-translate-y-1"
+      >
+        Agendar Visita
+      </Link>
+    </>
+  );
+
   return (
     <div className="max-w-7xl mx-auto mt-8 mb-24 px-4 overflow-x-hidden">
       <div className="w-full max-w-full overflow-hidden">
@@ -163,6 +233,12 @@ export default async function Page({ searchParams, params }) {
             </p>
           </div>
 
+          {/* ===== CAIXA DE VALORES EXCLUSIVA DO MOBILE ===== */}
+          {/* Esta div só aparece em telas pequenas (block) e some em telas grandes (lg:hidden) */}
+          <div className="block lg:hidden mb-12 bg-primary-900 border border-primary-800 rounded-2xl p-6 shadow-2xl w-full">
+            {conteudoValores}
+          </div>
+
           <div className="mb-12">
             <h2 className="text-3xl font-bold text-primary-900 mb-6">
               Explore a região
@@ -171,71 +247,11 @@ export default async function Page({ searchParams, params }) {
           </div>
         </div>
 
-        <div className="order-2 relative w-full h-full">
-          <div className="sticky top-32 bg-primary-900 border border-primary-800 rounded-2xl p-6 md:p-8 shadow-2xl w-full">
-            <h3 className="text-2xl font-bold text-primary-50 mb-6 border-b border-primary-800 pb-4">
-              Valores
-            </h3>
-
-            <div className="flex flex-col gap-4 mb-6">
-              <div className="flex justify-between items-center text-primary-200">
-                <span className="text-lg">Valor Base</span>
-                <span className="font-semibold text-primary-50 text-xl">
-                  R$ {precoBase.toLocaleString("pt-BR")}
-                </span>
-              </div>
-              <div className="flex justify-between items-center text-primary-200">
-                <span className="text-lg">Condomínio</span>
-                <span className="font-semibold text-primary-50 text-xl">
-                  R$ {valor_condominio || 0}
-                </span>
-              </div>
-              <div className="flex justify-between items-center text-primary-200">
-                <span className="text-lg">IPTU</span>
-                <span className="font-semibold text-primary-50 text-xl">
-                  R$ {valor_iptu || 0}
-                </span>
-              </div>
-            </div>
-
-            <div className="flex justify-between items-center py-6 border-t border-primary-800 mb-8">
-              <span className="text-2xl font-bold text-primary-50">Total</span>
-              <span className="text-3xl md:text-4xl font-bold text-accent-400">
-                R$ {valorTotal.toLocaleString("pt-BR")}
-              </span>
-            </div>
-
-            <div className="flex flex-col gap-4 mb-6">
-              <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${wppMessage}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full bg-[#25D366] hover:bg-[#1ebd5a] text-white font-bold py-4 rounded-xl text-center flex items-center justify-center gap-2 shadow-lg transition-all"
-              >
-                Falar no WhatsApp
-              </a>
-              <a
-                href={`mailto:${EMAIL_CONTACT}?subject=Interesse no Imóvel ${codigo_imovel || id}`}
-                className="w-full bg-primary-800 hover:bg-primary-700 text-primary-50 font-bold py-4 rounded-xl text-center border border-primary-700 transition-all"
-              >
-                Enviar E-mail
-              </a>
-            </div>
-
-            <div className="relative flex items-center py-2 mb-6">
-              <div className="flex-grow border-t border-primary-800"></div>
-              <span className="flex-shrink-0 mx-4 text-primary-400 text-sm uppercase tracking-wider">
-                ou agende online
-              </span>
-              <div className="flex-grow border-t border-primary-800"></div>
-            </div>
-
-            <Link
-              href={`/account/contratos/novo?imovel=${id}`}
-              className="block w-full bg-accent-500 hover:bg-accent-600 text-primary-900 text-center text-xl font-bold py-5 rounded-xl transition-all shadow-lg hover:-translate-y-1"
-            >
-              Agendar Visita
-            </Link>
+        {/* ===== CAIXA DE VALORES EXCLUSIVA DO DESKTOP ===== */}
+        {/* Esta div fica escondida no celular (hidden) e aparece na lateral direita em telas grandes (lg:block) */}
+        <div className="hidden lg:block order-2 relative w-full h-full">
+          <div className="sticky top-32 bg-primary-900 border border-primary-800 rounded-2xl p-8 shadow-2xl w-full">
+            {conteudoValores}
           </div>
         </div>
       </div>
